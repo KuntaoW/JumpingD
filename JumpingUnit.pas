@@ -90,6 +90,23 @@ begin
       end;
     end;
   end;
+
+  //move forward one step
+  if (result=false)  then
+  begin
+    //Index  + 1
+    iIndex := aIndex + 1;
+    if FListofString[iIndex]='0' then
+    begin
+      if JumpingForward(iIndex) then
+      begin
+        result := true;
+        exit;
+      end;
+    end;
+  end;
+
+
 end;
 
 
