@@ -14,7 +14,7 @@ type
       FJumpings : integer;
       procedure split(sDelim: Char; sSplitStr: String; ListofString :TStrings);
     protected
-      function JumpingForward():boolean;
+      function JumpingForward(aIndex:integer):boolean;
       procedure Init(aJumpSteps: Integer; aArrayofElement:String);
     public
       function VerifyInput(iJumpStep: integer; aArrayofElement:String):boolean;
@@ -60,12 +60,36 @@ var errMsg : string;
 begin
   VerifyInput(iJumpStep,aArrayofElement);
 
-  result := JumpingForward();
+  result := JumpingForward(0);
 end;
 
-function TJumping.JumpingForward():boolean;
+function TJumping.JumpingForward(aIndex:integer):boolean;
+var
+  iIndex : integer;
 begin
-  result := true;
+  result := false;
+
+  iIndex := 0;
+
+  if (aIndex+FJumpings)>= FListofString.count then
+   begin
+     result := True;
+     exit;
+   end;
+
+  //jump forward
+  if (result=false) then
+  begin
+    iIndex := aIndex+FJumpings;
+    if FListofString[iIndex]='0' then
+    begin
+      if JumpingForward(iIndex) then
+      begin
+        result := true;
+        exit;
+      end;
+    end;
+  end;
 end;
 
 
