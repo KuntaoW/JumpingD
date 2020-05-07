@@ -14,7 +14,7 @@ type
       FJumpings : integer;
       procedure split(sDelim: Char; sSplitStr: String; ListofString :TStrings);
     protected
-      function JumpingForward(aIndex:integer):boolean;
+      function JumpingForward(aIndex:integer; aForward:Boolean):boolean;
       procedure Init(aJumpSteps: Integer; aArrayofElement:String);
     public
       function VerifyInput(iJumpStep: integer; aArrayofElement:String):boolean;
@@ -60,10 +60,10 @@ var errMsg : string;
 begin
   VerifyInput(iJumpStep,aArrayofElement);
 
-  result := JumpingForward(0);
+  result := JumpingForward(0,True);
 end;
 
-function TJumping.JumpingForward(aIndex:integer):boolean;
+function TJumping.JumpingForward(aIndex:integer; aForward:Boolean):boolean;
 var
   iIndex : integer;
 begin
@@ -83,7 +83,7 @@ begin
     iIndex := aIndex+FJumpings;
     if FListofString[iIndex]='0' then
     begin
-      if JumpingForward(iIndex) then
+      if JumpingForward(iIndex,aForward) then
       begin
         result := true;
         exit;
@@ -91,31 +91,35 @@ begin
     end;
   end;
 
-  //move forward or backward
-  if (result=false)  then
+  //move forward
+  if (result=false) and (aForward) then
   begin
     //foward: Index  + 1
     iIndex := aIndex + 1;
     if FListofString[iIndex]='0' then
     begin
-      if JumpingForward(iIndex) then
+      if JumpingForward(iIndex,aForward) then
       begin
         result := true;
         exit;
-      end;
+      end
+      else  aForward := false;
     end
     else
+      aForward := false;
+  end;
+  //move backward
+  if (result=false) and (not aForward) then
+  begin
+    //backward: index - 1
+    iIndex := aIndex - 1;
+    if (iIndex <= 0) then exit;
+    if FListofString[iIndex]='0' then
     begin
-      //backward: index - 1
-      iIndex := aIndex - 1;
-      if (iIndex <= 0) then exit;
-      if FListofString[iIndex]='0' then
+      if JumpingForward(iIndex,aForward) then
       begin
-        if JumpingForward(iIndex) then
-        begin
-          result := true;
-          exit;
-        end;
+        result := true;
+        exit;
       end;
     end;
   end;
