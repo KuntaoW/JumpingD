@@ -26,8 +26,12 @@ type
     [TestCase('Test First Element Is 0->1','0;1,0;False',';')]
     procedure TestInput(Jumps: integer;sArray:String; _result:boolean);
 
-    [TestCase('Test Jump 3 with all 0 "0,0,0,0,0"','3;0,0,0,0,0;True',';')]
-    [TestCase('Test Jump forward "0,0,0,1,1"','3;0,0,0,1,1;True',';')]
+    [TestCase('Test Jump 3 with all 0', '3;0,0,0,0,0;True',';')]
+    [TestCase('Test 3->"0,0,0,1,1" '  , '3;0,0,0,1,1;True',';')]
+    [TestCase('Test 5->"0,0,0,1,1,1" ', '5;0,0,0,1,1,1;True',';')]
+    [TestCase('Test 3->"0,0,1,1,1,0" ', '3;0,0,1,1,1,0;False',';')]
+    [TestCase('Test 1->"0,1,0" '      , '1;0,1,0;False',';')]
+    [TestCase('Test 4->"0,0,1,0,0,1,1,0,1" ' , '4;0,0,1,0,0,1,1,0,1;True',';')]
     procedure TestJumping(Jumps: integer;sArray:String; _result:boolean);
 
 

@@ -91,10 +91,10 @@ begin
     end;
   end;
 
-  //move forward one step
+  //move forward or backward
   if (result=false)  then
   begin
-    //Index  + 1
+    //foward: Index  + 1
     iIndex := aIndex + 1;
     if FListofString[iIndex]='0' then
     begin
@@ -102,6 +102,20 @@ begin
       begin
         result := true;
         exit;
+      end;
+    end
+    else
+    begin
+      //backward: index - 1
+      iIndex := aIndex - 1;
+      if (iIndex <= 0) then exit;
+      if FListofString[iIndex]='0' then
+      begin
+        if JumpingForward(iIndex) then
+        begin
+          result := true;
+          exit;
+        end;
       end;
     end;
   end;
