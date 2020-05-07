@@ -32,6 +32,8 @@ type
     [TestCase('Test 3->"0,0,1,1,1,0" ', '3;0,0,1,1,1,0;False',';')]
     [TestCase('Test 1->"0,1,0" '      , '1;0,1,0;False',';')]
     [TestCase('Test 4->"0,0,1,0,0,1,1,0,1" ' , '4;0,0,1,0,0,1,1,0,1;True',';')]
+    //more complex test case, need backward more than 1 time
+    [TestCase('Test 4->lengh 13-> should be True', '4;0,1,0,0,0,1,0,1,1,1,0,0,0;True',';')]
     procedure TestJumping(Jumps: integer;sArray:String; _result:boolean);
 
 
